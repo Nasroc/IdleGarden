@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import CardList from './CardList';
+import { plants } from './Plants';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            touched: false,
+            plants: plants,
+            name: '',
+        }
+    }
+
+    onClicked = (event) => {
+        console.log(event.currentTarget.value);
+        this.state.plants[event.currentTarget.value].value += 1;
+        this.forceUpdate();
+
+    }
+    render() {
+        return (
+            <div className='tc'>
+                <h1>Idle Garden</h1>
+                <CardList plants={plants} clicked = {this.onClicked}/>
+            </div>
+        );
+    }
 }
 
 export default App;
