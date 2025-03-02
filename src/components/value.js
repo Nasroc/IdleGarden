@@ -1,7 +1,7 @@
 export var values = [
     {
         id: 0,
-        value: 0
+        value: 1
     },
     {
         id: 1,

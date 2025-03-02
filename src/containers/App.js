@@ -13,39 +13,41 @@ function App () {
     const forceUpdate = React.useCallback(() => updateState({}), []);
 
 
-    useEffect(() => {
+    useEffect(() => {                               //updates card values
         setPlants(plants);
         setTotals(values);
         setTotalIncome(sumIncome(totalIncome));
     }, [totalIncome])
 
-    useEffect(() => {
+    useEffect(() => {                                                                           //updates recuring numbers "money" and "income"
+        updateState();
         const addMoney = setTimeout(() => setMoney(money + totalIncome), 1000);
-        return () => clearTimeout(addMoney);
+        const updateIncome = setTimeout(() => setTotalIncome(sumIncome(totalIncome)), 10);
+        return () => clearTimeout(addMoney, updateIncome);
     }, [money, totalIncome]);
 
-    function sumIncome (totalIncome) {
+    function sumIncome () {                                                                    //sets new value for income
         let sum = 0;
         let plantCards = document.querySelectorAll('.plantCard');
         for (let i = 0; i < plantCards.length; i++) {
             sum += parseFloat(plantCards[i].getAttribute('income'));
         }
-        console.log(sum);
         return sum;
     }
 
-    const onClicked = (event) => {
+    const onClicked = (event) => {                                                          //called when plants are clicked
         totals[event.currentTarget.value].value += 1;
         setTotals(totals);
         setTotalIncome(sumIncome(totalIncome));
         forceUpdate();
     }
-        return (
+    
+        return (                                                                           //sends items to website
             <div className='tc'>
                 <h1>Idle Garden</h1>
                 <CardList values={totals} plants={Plants} clicked = {onClicked}/>
                 <Money value = {money}/>
-                <p>TestTEst: {totalIncome}</p>
+                <p>Income: {totalIncome.toFixed(1)}</p>
             </div>
         );
 }

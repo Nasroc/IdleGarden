@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from './Card';
 
-const CardList = ({ plants, clicked, values }) => {
-    function getIncome (i) {
+const CardList = ({ plants, clicked, values }) => {                             //creates the list of all the cards
+    function getIncome (i) {                            //sets income value on the cards
         let income = 0;
         if (values[i].id/10 <= 0.5) {
             income = values[i].value/10;
@@ -12,7 +12,18 @@ const CardList = ({ plants, clicked, values }) => {
         }
         return income;
     }
-    return (
+    function getCost (i) {                          //sets the cost value on the cards
+        let cost = 0;
+        if(values[i].value === 0){
+            cost = 1;
+        }else if(values[i].id/10 <= 0.5){
+            cost = values[i].value * 0.8;
+        }else{
+            cost = values[i].value * 2;
+        }
+        return cost;
+    }
+    return (                                    //returns updated values
         <div>
             {plants.map((user, i) => (
                 <Card 
@@ -24,7 +35,7 @@ const CardList = ({ plants, clicked, values }) => {
                 income={getIncome(i)}
                 value={values[i].value}
                 clicked={clicked}
-                money={values[i].value * 10}
+                cost={getCost(i)}
                 />
             ))}
 

@@ -2,6 +2,7 @@ export const plants = [
     {
         id: 0,
         name: 'Aloe Vera',
+        image: 'https://pixahive.com/wp-content/uploads/2020/10/An-aloe-vera-plant-162540-pixahive.jpg'
     },
     {
         id: 1,
